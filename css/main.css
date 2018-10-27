@@ -33,6 +33,7 @@
 body,
 html {
   height: 100%;
+  overflow: hidden;
   font-family: Poppins-Regular, sans-serif;
 }
 
@@ -250,6 +251,7 @@ iframe {
 }
 
 .timer-view {
+  text-align: -webkit-right;
   font-weight: bold;
   font-size: 21px;
   border-radius: 10px;
@@ -602,10 +604,75 @@ iframe {
   color: white;
   font-weight: bold;
 }
-
-.oval {
-  height: 85px;
-  width: 150px;
+.question-box {
+  min-height: 380px;
+  width: 100%;
+  border: 1px solid gray;
+  color: navy;
+  position: inherit;
+  top: -38px;
+  background: #73737357;
+  left: 48px;
+  border-top-left-radius: 20px;
+  padding: 15px;
+}
+input[type="radio"] {
+  display: none;
+}
+input[type="radio"]:hover  +.box {
+  background-color: #007e90;
+}
+input[type="radio"]:checked + .box {
+  background-color:#007e20;
+}
+input[type="radio"]:checked + .box span {
+  color: white;
+}
+.option-count{
+  display: inline-block;
+  width: 45px;
+  border: 1px solid gray;
+}
+.box {
+  padding-left: 5px;
+  width: 100%;
+  height: 25px;
+  border: 1px solid gray;
+  transition: all 250ms ease;
+  will-change: transition;
+  display: inline-block;
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+}
+.box:active {
+  transform: translateY(10px);
+}
+.box span {
+  transition: all 300ms ease;
+  font-size: 14px;
+  user-select: none;
+  color: navy;
+}
+.action-button{
+  display: inline-block;
+  border: 1px solid gray;
+}
+.action-button-group{
+  text-align: center;
+}
+.circle {
+  height: 70px;
+  top: -10px;
+  width: 70px;
+  z-index: 1;
+  padding-top: 18px;
+  padding-left: 5px;
+  padding-right: 5px;
+  background: darkmagenta;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
   border: 2px solid #808080;
   border-radius: 50%;
   text-align: center;

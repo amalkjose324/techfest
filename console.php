@@ -33,103 +33,107 @@ if (!isset($_SESSION['userid'])) {
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-quiz100 quiz-bg col-md-11 col-sm-11 ">
-
-				<div class="col-md-12">
-					<div class="col-md-8">
-						<h5><b class="big_name">Anju V Thomas</b></h5>Amal Jyothi College of Engineering, Kanjirapally<hr>
-					</div>
-					<div class="timer-view col-md-4">
-						<h5 class="timer-head">Time Remaining</h5>
-						<?php
-						if (empty($_SESSION['quiz_end_time'])) {
-							$duration                  = 30;
-							$_SESSION['quiz_end_time'] = strtotime(date('Y-m-d H:i:s')) + $duration;
-						}
-						$quiz_time_now = strtotime(date('Y-m-d H:i:s'));
-						$quiz_time_end = $_SESSION['quiz_end_time'];
-						$time_left     = $quiz_time_end - $quiz_time_now;
-						if ($time_left < 1) {
-							echo "0 : 0";
-
-						} else {
-							echo floor($time_left / 60) . " : " . $time_left % 60;
-
-						}
-						?>
-						<hr>
-					</div>
-
-
-
-					<form name="submit" method="post" action="#">
-						<p class="oval"><b><br>	QUESTION <br><font size="5">
-							<?php
-							$qry = "select * from techfest_questions";
-							$res = mysqli_query($con, $qry);
-							$i   = 0;
-							while ($row = mysqli_fetch_array($res)) {
-								$i = $i + 1;
-								echo "$i </b></font></p><div id='v'><br>";
-								$id = $row['question_id'];
-								echo $row['question_content'];
-								$qry1 = "select * from techfest_choices where choice_question_id='$id'";
-								$res1 = mysqli_query($con, $qry1);
-								$i    = 0;
-								while ($row1 = mysqli_fetch_array($res1)) {
-									?>
-									<input type="radio" name="ans" value="<?php echo $row1['choice_content']; ?>"> <?php echo $row1['choice_content'];?></input>
-									<?php
+				<div class="row">
+					<div class="col-md-12">
+						<div class="row">
+							<div class="col-md-10">
+								<h5><b class="big_name">Anju V Thomas</b></h5>Amal Jyothi College of Engineering, Kanjirapally<hr>
+							</div>
+							<div class="timer-view col-md-2">
+								<h5 class="timer-head">Time Remaining</h5>
+								<?php
+								if (empty($_SESSION['quiz_end_time'])) {
+									$duration                  = 30;
+									$_SESSION['quiz_end_time'] = strtotime(date('Y-m-d H:i:s')) + $duration;
 								}
-							}
-							?>
+								$quiz_time_now = strtotime(date('Y-m-d H:i:s'));
+								$quiz_time_end = $_SESSION['quiz_end_time'];
+								$time_left     = $quiz_time_end - $quiz_time_now;
+								if ($time_left < 1) {
+									echo "0 : 0";
+								} else {
+									echo floor($time_left / 60) . " : " . $time_left % 60;
+								}
+								?>
+								<hr>
+							</div>
+						</div>
+						<div class="circle col-md-2">
+							Question<br>1
+						</div>
+						<div class="question-box col-md-8">
+							uiyiudfiogofdoiu clknf
+							df sdf sfsdf i ugsd hug hugsudy fgsdgfusydg fusgd fsdui fusd uudfgu ysu sdusudgfuhsgdihf uhgdhiuhxugdufhsuhfgush
+							<hr>
+							<div class="col-md-12">
+								<div class="col-md-12">
+									<div class="col-md-1 option-count">
+										<span>A</span>
+									</div>
+									<label class="col-md-11">
+										<input type="radio" name="1" />
+										<div class="box">
+											<span>Option 1</span>
+										</div>
+									</label>
+								</div>
+								<div class="col-md-12">
+									<div class="col-md-1 option-count">
+										<span>B</span>
+									</div>
+									<label class="col-md-11">
+										<input type="radio" name="1" />
+										<div class="box">
+											<span>Option 1</span>
+										</div>
+									</label>
+								</div>
+								<div class="col-md-12">
+									<div class="col-md-1 option-count">
+										<span>C</span>
+									</div>
+									<label class="col-md-11">
+										<input type="radio" name="1" />
+										<div class="box">
+											<span>Option 1</span>
+										</div>
+									</label>
+								</div>
+								<div class="col-md-12">
+									<div class="col-md-1 option-count">
+										<span>D</span>
+									</div>
+									<label class="col-md-11">
+										<input type="radio" name="1" />
+										<div class="box">
+											<span>Option 1</span>
+										</div>
+									</label>
+								</div>
+							</div>
+							<div class="action-section">
+								<hr>
+								<div class="row">
+									<div class="col-md-12 action-button-group">
+										<div class="col-md-3 action-button">
+											Reset Selection
+										</div>
+										<div class="col-md-3 action-button">
+											Next Question
+										</div>
+										<div class="col-md-3 action-button">
+											Mark for Review
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
-
-
 				</div>
-
 			</div>
 		</div>
-		<div id="i">
-			<br><br>
-			<?php
-			$qry = "select * from techfest_questions";
-			$res = mysqli_query($con, $qry);
-			$i   = 1;
-			while ($row = mysqli_fetch_array($res)) {
-				if ($_SESSION['question_id'] == "") {
-					?>
-					<a class="button1 col-md-2"><?php echo $i;
-					$i = $i + 1;
-					?>
-				</a>
-
-
-				<?php
-			} else {?>
-				<a class="button3 col-md-2"><?php echo $i;
-				$i = $i + 1;
-				?>
-			</a>
-			<?php
-		}
-	}
-	?>
-</div>
-<div id="b">
-	<input type="button" value="PREV" class="button2">
-	<input type="submit" value="SUBMIT" name="submit" class="button2">
-	<input type="button" value="REVIEW" class="button2">
-</form>
-
-
-<?php
-if (isset($_POST['submit'])) {
-	$_SESSION['question_id'] = $_POST['ans'];
-	echo $_SESSION['question_id'];
-}
-?>
-</div>
+	</div>
+</body>
 <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 <!--===============================================================================================-->
 <script src="vendor/bootstrap/js/popper.js"></script>
@@ -143,7 +147,12 @@ if (isset($_POST['submit'])) {
 
 <!--===============================================================================================-->
 <script src="js/main.js"></script>
-
+<script src="js/scripts.js"> </script>
+<!-- <script>
+$(window).resize(function(){
+	window.resizeTo(screen.width,screen.height);
+});
+</script> -->
 </body>
 
 </html>
