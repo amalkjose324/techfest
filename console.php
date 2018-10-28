@@ -1,9 +1,7 @@
 <?php
 $login_error = "";
-include_once "db_connection.php";
-if (!isset($_SESSION['userid'])) {
-	// echo "<script>window.location.href = './';</script>";
-}
+include_once 'config.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,6 +31,9 @@ if (!isset($_SESSION['userid'])) {
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-quiz100 quiz-bg col-md-11 col-sm-11 col-lg-11">
+				<!-- <div class="col-md-10 col-sm-10 col-lg-10"> -->
+					<b class="round-title"><?php echo $round_text ?> <br> <p><?php echo $round_descripton ?></p></b>
+				<!-- </div> -->
 				<!-- <div class=""> -->
 				<div class="col-md-12 col-sm-12 col-lg-12">
 					<div class="col-md-10 col-sm-10 col-lg-10">

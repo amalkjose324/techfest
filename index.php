@@ -13,9 +13,10 @@ if (isset($_POST['login_submit'])) {
   if (mysqli_num_rows($query) > 0) {
     while ($row = mysqli_fetch_array($query)) {
       if ($row['user_type'] == 1) {
+        mysqli_query($con, "UPDATE `techfest_users` SET `user_round` = 1 WHERE `user_username`='$un' AND `user_round`=0");
         echo "<script>window.location.href = 'console.php';</script>";
       } else {
-        echo "<script>window.location.href = 'console.php';</script>";
+        echo "<script>window.location.href = 'admin-console.php';</script>";
       }
     }
   } else {
