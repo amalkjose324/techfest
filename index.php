@@ -4,6 +4,8 @@ include_once "db_connection.php";
 if (isset($_SESSION['userid'])) {
   $userid = $_SESSION['userid'];
   echo "<script>window.location.href = 'console.php';</script>";
+}else{
+  session_unset();
 }
 
 if (isset($_POST['login_submit'])) {
@@ -12,6 +14,7 @@ if (isset($_POST['login_submit'])) {
   $query = mysqli_query($con, "SELECT * FROM `techfest_users` WHERE `user_username`='$un' AND `user_password`='$pw'");
   if (mysqli_num_rows($query) > 0) {
     while ($row = mysqli_fetch_array($query)) {
+      $_SESSION['userid']=$row['user_id'];
       if ($row['user_type'] == 1) {
         mysqli_query($con, "UPDATE `techfest_users` SET `user_round` = 1 WHERE `user_username`='$un' AND `user_round`=0");
         echo "<script>window.location.href = 'console.php';</script>";

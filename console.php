@@ -37,7 +37,7 @@ include_once 'config.php';
 				<!-- <div class=""> -->
 				<div class="col-md-12 col-sm-12 col-lg-12">
 					<div class="col-md-10 col-sm-10 col-lg-10">
-						<h5><b class="big_name">Anju V Thomas</b></h5>Amal Jyothi College of Engineering, Kanjirapally<hr>
+						<h5><b class="big_name"><?php echo $user_name ?></b></h5><?php echo $user_college ?><hr>
 					</div>
 					<div class="row" id="timer-row">
 
