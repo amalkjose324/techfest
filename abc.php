@@ -17,7 +17,6 @@ $_SESSION['techfest_questions'] = array(
 $_SESSION['question_order']=range(1, 20);
 shuffle($_SESSION['question_order']);
 
-print_r($_SESSION['question_order'][1]);
 // print_r($val=$_SESSION['quiz'][1]);
 // $allKeys = array_keys($_SESSION['quiz'][1]);
 // echo $allKeys[0];

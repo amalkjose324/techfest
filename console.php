@@ -59,6 +59,7 @@ include_once 'config.php';
 							<hr>
 						</div>
 					</div>
+					<div class="col-md-12 col-sm-12 col-lg-12">
 					<div class="circle col-md-2 col-sm-2 col-lg-2">
 						Question<br>1
 					</div>
@@ -136,7 +137,7 @@ include_once 'config.php';
 					<div class="status-section col-md-3 col-sm-3 col-lg-3">
 						<div class="status-grid col-md-12 col-sm-12 col-lg-12">
 							<?php
-							for($i=0;$i<30;$i++){
+							for($i=0;$i<$question_count;$i++){
 								?>
 								<div class="grid-button">
 									<?php echo $i+1 ?>
@@ -171,11 +172,16 @@ include_once 'config.php';
 							</div>
 						</div>
 					</div>
-
+</div>
 					<!-- </div> -->
 				</div>
+				<form action="" method="post">
+					<input type="submit" name="session_out" value="Signout">
+				</form>
 			</div>
+
 		</div>
+
 	</body>
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
 	<!--===============================================================================================-->
@@ -196,11 +202,20 @@ include_once 'config.php';
       $('#timer-row').load(' #timer-row');
  },1000);
 	</script>
+	<script>
+		$(document).ready(function () {
+			$('.grid-button').each(function () {
+				$(this).click(function () {
+					console.log((this.innerHTML).trim());
+					alert((this.innerHTML).trim());
+				})
+			})
+		})
+	</script>
 	<!-- <script>
 	$(window).resize(function(){
 	window.resizeTo(screen.width,screen.height);
 });
 </script> -->
-</body>
 
 </html>

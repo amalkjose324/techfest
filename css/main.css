@@ -226,7 +226,21 @@ iframe {
   -o-background-size: cover;
   background-size: cover;
 }
-
+.admin-left-div{
+border: 1px solid gray;
+padding: 15px;
+}
+/* .nav-tabs .active {
+  background: green;
+  color: white;
+} */
+.admin-right-div{
+  display: inline-block;
+    float: right;
+    top: -56px;;
+    border: 1px solid gray;
+    padding: 15px;
+}
 .wrap-login100 {
   width: 960px;
   background: #ffffffbf;
@@ -241,6 +255,15 @@ iframe {
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 177px 130px 33px 95px;
+}
+.fa-download{
+  color:blue;
+  margin-right:  10px;
+  font-size: 16px;
+}
+.sel-active{
+  background: green;
+  color: white;
 }
 .timer-head{
   font-size:16px;
@@ -369,7 +392,7 @@ padding: 0px;
     float: right;
     position: absolute;
     right: 45px;
-    top: 113px;
+    top: 33px;
 }
 .timer-view {
   text-align: center;

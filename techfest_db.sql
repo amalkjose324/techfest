@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 28, 2018 at 04:33 AM
+-- Generation Time: Oct 30, 2018 at 10:41 AM
 -- Server version: 10.1.34-MariaDB
 -- PHP Version: 7.2.7
 
@@ -25,31 +25,17 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `techfest_choices`
---
-
-CREATE TABLE `techfest_choices` (
-  `choice_id` int(11) NOT NULL,
-  `choice_question_id` int(11) NOT NULL,
-  `choice_content` varchar(300) NOT NULL,
-  `choice_iscurrect` tinyint(4) NOT NULL,
-  `choice_status` tinyint(4) NOT NULL DEFAULT '1',
-  `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `techfest_questions`
 --
 
 CREATE TABLE `techfest_questions` (
   `question_id` int(11) NOT NULL,
   `question_content` varchar(1000) NOT NULL,
-  `question_image` varchar(1000) DEFAULT NULL,
-  `question_type` tinyint(4) NOT NULL,
-  `question_status` tinyint(4) NOT NULL DEFAULT '1',
+  `question_option_currect` varchar(100) NOT NULL,
+  `question_option_wrong1` varchar(100) NOT NULL,
+  `question_option_wrong2` varchar(100) NOT NULL,
+  `question_option_wrong3` varchar(100) NOT NULL,
+  `question_round` tinyint(4) NOT NULL,
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -67,7 +53,9 @@ CREATE TABLE `techfest_users` (
   `user_fullname` varchar(100) NOT NULL,
   `user_college` varchar(200) NOT NULL,
   `user_type` tinyint(4) NOT NULL DEFAULT '1',
-  `user_status` tinyint(4) NOT NULL DEFAULT '1',
+  `user_round` tinyint(4) NOT NULL DEFAULT '0',
+  `user_round1_mark` tinyint(4) NOT NULL DEFAULT '0',
+  `user_round2_mark` tinyint(4) NOT NULL DEFAULT '0',
   `created_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_on` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -75,12 +63,6 @@ CREATE TABLE `techfest_users` (
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `techfest_choices`
---
-ALTER TABLE `techfest_choices`
-  ADD PRIMARY KEY (`choice_id`);
 
 --
 -- Indexes for table `techfest_questions`
@@ -97,12 +79,6 @@ ALTER TABLE `techfest_users`
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
---
--- AUTO_INCREMENT for table `techfest_choices`
---
-ALTER TABLE `techfest_choices`
-  MODIFY `choice_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `techfest_questions`

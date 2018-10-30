@@ -2,6 +2,8 @@
 include_once "db_connection.php";
 if (!isset($_SESSION['userid'])) {
 	 echo "<script>window.location.href = './';</script>";
+}else if($_SESSION['u_type']==2){
+	echo "<script>window.location.href = 'admin-console.php';</script>";
 }
 $_SESSION['techfest_questions']=array();
 $userid=$_SESSION['userid'];
@@ -29,36 +31,25 @@ else if($round==2){
   $round_text="Round-2";
   $round_descripton ="20 Questions : Negative Marking : Yes (Correct : +4, Incurrect : -1)";
 }
+$_SESSION['question_order']=range(1, $question_count);
+shuffle($_SESSION['question_order']);
 
-$questions_query = mysqli_query($con, "SELECT * FROM `techfest_questions` WHERE `question_type`=$round");
+
+$questions_query = mysqli_query($con, "SELECT * FROM `techfest_questions` WHERE `question_round`=$round");
 while ($row_question = mysqli_fetch_array($questions_query)) {
   $qid=$row_question['question_id'];
   $_SESSION['techfest_questions'][$qid]=array(
-    'question'=>$row_question['question_content'],
-    'user_answer-id'=>0,
+    'currect_answer'=>$row_question['question_option_currect'],
+    'user_answer'=>'',
     'question_status'=>0,
   );
-  $choice_query = mysqli_query($con, "SELECT * FROM `techfest_choices` WHERE `choice_question_id`=$qid");
-  while ($row_choice = mysqli_fetch_array($choice_query)) {
-    $cid=$row_choice['choice_id'];
-    $_SESSION['techfest_questions'][$qid]=array(
-      'options'=>array(
-        $cid=>$row_choice['choice_content'],
-      ),
-      'answer_id'=>10,
-    );
-    if($row_choice['choice_iscurrect']==1){
-      $_SESSION['techfest_questions'][$qid]=array(
-        'answer_id'=>$cid,
-      );
-    }
-  }
 
 }
 
 
 
-print_r($_SESSION['techfest_questions']);
-$_SESSION['question_order']=range(1, $question_count);
-shuffle($_SESSION['question_order']);
+if(isset($_POST['session_out'])){
+	session_destroy();
+	echo "<script>window.location.href = './';</script>";
+}
 ?>

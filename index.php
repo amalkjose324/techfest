@@ -3,7 +3,11 @@ $login_error = "";
 include_once "db_connection.php";
 if (isset($_SESSION['userid'])) {
   $userid = $_SESSION['userid'];
-  echo "<script>window.location.href = 'console.php';</script>";
+  if($_SESSION['u_type']==2){
+      echo "<script>window.location.href = 'admin-console.php';</script>";
+  }else{
+    echo "<script>window.location.href = 'console.php';</script>";
+  }
 }else{
   session_unset();
 }
@@ -16,9 +20,11 @@ if (isset($_POST['login_submit'])) {
     while ($row = mysqli_fetch_array($query)) {
       $_SESSION['userid']=$row['user_id'];
       if ($row['user_type'] == 1) {
-        mysqli_query($con, "UPDATE `techfest_users` SET `user_round` = 1 WHERE `user_username`='$un' AND `user_round`=0");
+        mysqli_query($con, "UPDATE `techfest_users` SET `user_round` = 1 WHERE `user_username`='$un' AND `user_round`=0 AND `user_type`=1");
+        $_SESSION['u_type']=1;
         echo "<script>window.location.href = 'console.php';</script>";
       } else {
+        $_SESSION['u_type']=2;
         echo "<script>window.location.href = 'admin-console.php';</script>";
       }
     }
