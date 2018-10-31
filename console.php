@@ -11,11 +11,11 @@ include_once 'config.php';
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+	<link rel="icon" type="image/png" href="favicon.ico" />
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
 	<!--===============================================================================================-->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" >
+	<link rel="stylesheet" href="css/font-awesome.css" >
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
 	<!--===============================================================================================-->
@@ -52,6 +52,7 @@ include_once 'config.php';
 							$time_left     = $quiz_time_end - $quiz_time_now;
 							if ($time_left < 1) {
 								echo "0 : 0";
+								echo "<script>alert('Time Completed!');</script>";
 							} else {
 								echo floor($time_left / 60) . " : " . $time_left % 60;
 							}
@@ -175,9 +176,6 @@ include_once 'config.php';
 </div>
 					<!-- </div> -->
 				</div>
-				<form action="" method="post">
-					<input type="submit" name="session_out" value="Signout">
-				</form>
 			</div>
 
 		</div>

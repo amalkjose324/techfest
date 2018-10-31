@@ -5,10 +5,7 @@ if (!isset($_SESSION['userid'])) {
 }else if(!$_SESSION['u_type']==2){
   echo "<script>window.location.href = 'console.php';</script>";
 }
-if(isset($_POST['session_out'])){
-  session_destroy();
-  echo "<script>window.location.href = './';</script>";
-}
+
 function pre_postRemover($value)
 {
   $value = preg_replace('/^\"/', '', $value);
@@ -70,7 +67,7 @@ if(isset($_POST['filesubmit'])){
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!--===============================================================================================-->
-  <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+  <link rel="icon" type="image/png" href="favicon.ico" />
   <!--===============================================================================================-->
   <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
   <!--===============================================================================================-->
@@ -183,8 +180,8 @@ if(isset($_POST['filesubmit'])){
                   <table class="table table-striped dataTable">
                     <thead>
                       <tr>
-                        <th>Question</th>
                         <th>Round</th>
+                        <th>Question</th>
                         <th>Option-1</th>
                         <th>Option-2</th>
                         <th>Option-3</th>
@@ -199,12 +196,12 @@ if(isset($_POST['filesubmit'])){
                         shuffle($options);
                         ?>
                         <tr>
-                          <td><?php echo $question_sel_row['question_content']?></td>
                           <td><?php echo "Round-".$question_sel_row['question_round']?></td>
+                          <td><?php echo $question_sel_row['question_content']?></td>
                           <?php
                           foreach ($options as $option) {
                             if($option==$question_sel_row['question_option_currect']){
-                              ?><td style="color:green;"><?php echo $option?></td><?php
+                              ?><td style="color:red;"><?php echo $option?></td><?php
                             }else{
                               ?><td><?php echo $option?></td><?php
                             }
@@ -253,9 +250,6 @@ if(isset($_POST['filesubmit'])){
 
 
         </div>
-        <form action="" method="post">
-          <input type="submit" name="session_out" value="Signout">
-        </form>
       </div>
 
     </div>

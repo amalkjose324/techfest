@@ -47,9 +47,4 @@ while ($row_question = mysqli_fetch_array($questions_query)) {
 }
 
 
-
-if(isset($_POST['session_out'])){
-	session_destroy();
-	echo "<script>window.location.href = './';</script>";
-}
 ?>
