@@ -32,7 +32,7 @@ include_once 'config.php';
 		<div class="container-login100">
 			<div class="wrap-quiz100 quiz-bg col-md-11 col-sm-11 col-lg-11">
 				<!-- <div class="col-md-10 col-sm-10 col-lg-10"> -->
-					<b class="round-title"><?php echo $round_text ?> <br> <p><?php echo $round_descripton ?></p></b>
+				<b class="round-title"><?php echo $round_text ?> <br> <p><?php echo $round_descripton ?></p></b>
 				<!-- </div> -->
 				<!-- <div class=""> -->
 				<div class="col-md-12 col-sm-12 col-lg-12">
@@ -60,120 +60,201 @@ include_once 'config.php';
 							<hr>
 						</div>
 					</div>
-					<div class="col-md-12 col-sm-12 col-lg-12">
-					<div class="circle col-md-2 col-sm-2 col-lg-2">
-						Question<br>1
-					</div>
-					<div class="question-box col-md-8 col-sm-8 col-lg-8">
-						<div class="question-section">
-							uiyiudfiogofdoiu clknf
-							df sdf sfsdf i ugsd hug hugsudy fgsdgfusydg fusgd fsdui fusd uudfgu ysu sdusudgfuhsgdihf uhgdhiuhxugdufhsuhfgush
-						</div>
-						<div class="option-section col-md-12 col-sm-12 col-lg-12">
-							<hr>
-							<div class="col-md-12 col-sm-12 col-lg-12">
-								<div class="col-md-12 col-sm-12 col-lg-12">
-									<div class="col-md-1 col-sm-1 col-lg-1 option-count">
-										<span>A</span>
-									</div>
-									<label class="col-md-11 col-sm-11 col-lg-11">
-										<input type="radio" name="1" />
-										<div class="box">
-											<span>Option 1</span>
-										</div>
-									</label>
-								</div>
-								<div class="col-md-12 col-sm-12 col-lg-12">
-									<div class="col-md-1 col-sm-1 col-lg-1 option-count">
-										<span>B</span>
-									</div>
-									<label class="col-md-11 col-sm-11 col-lg-11">
-										<input type="radio" name="1" />
-										<div class="box">
-											<span>Option 1</span>
-										</div>
-									</label>
-								</div>
-								<div class="col-md-12 col-sm-12 col-lg-12">
-									<div class="col-md-1 col-sm-1 col-lg-1 option-count">
-										<span>C</span>
-									</div>
-									<label class="col-md-11 col-sm-11 col-lg-11">
-										<input type="radio" name="1" />
-										<div class="box">
-											<span>Option 1</span>
-										</div>
-									</label>
-								</div>
-								<div class="col-md-12 col-sm-12 col-lg-12">
-									<div class="col-md-1 col-sm-1 col-lg-1 option-count">
-										<span>D</span>
-									</div>
-									<label class="col-md-11 col-sm-11 col-lg-11">
-										<input type="radio" name="1" />
-										<div class="box">
-											<span>Option 1</span>
-										</div>
-									</label>
-								</div>
-							</div>
-							<div class="action-section">
-								<hr>
-								<div class="row">
-									<div class="col-md-12 col-sm-12 col-lg-12 action-button-group">
-										<div class="col-md-3 col-sm-3 col-lg-3 action-button bg-orange">
-											Reset Selection
-										</div>
-										<div class="col-md-3 col-sm-3 col-lg-3 action-button bg-green">
-											Next Question
-										</div>
-										<div class="col-md-3 col-sm-3 col-lg-3 action-button bg-magenta">
-											Mark for Review
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="status-section col-md-3 col-sm-3 col-lg-3">
-						<div class="status-grid col-md-12 col-sm-12 col-lg-12">
+					<div  class="question_space">
+						<div class="col-md-12 col-sm-12 col-lg-12">
 							<?php
-							for($i=0;$i<$question_count;$i++){
+							$questionorederno=$_SESSION['current_question'];
+							$questionid=$_SESSION['question_order'][$questionorederno-1];
+							$questions_query = mysqli_query($con, "SELECT * FROM `techfest_questions` WHERE `question_id`=$questionid");
+							while ($row_question = mysqli_fetch_array($questions_query)) {
+								$options_list=array($row_question['question_option_currect'],$row_question['question_option_wrong1'],$row_question['question_option_wrong2'],$row_question['question_option_wrong3']);
+								shuffle($options_list);
+
+								if(!isset($_SESSION['techfest_questions'][$questionid])){
+									$_SESSION['techfest_questions'][$questionid]=array(
+										'currect_answer'=>$row_question['question_option_currect'],
+										'user_answer'=>0,
+									);
+								}
+
 								?>
-								<div class="grid-button">
-									<?php echo $i+1 ?>
+								<div class="circle col-md-2 col-sm-2 col-lg-2">
+									<?php
+									echo "Question<br>".$questionorederno;
+									?>
 								</div>
-								<?php
-							}
-							?>
+								<div class="question-box col-md-8 col-sm-8 col-lg-8">
 
-						</div>
-						<div class="col-md-12 col-sm-12 col-lg-12 table-status">
-							<table class="col-md-12 col-sm-12 col-lg-12">
-								<tr>
-									<td class="status-icon color-gray">Not Attended</td>
-									<td class="status-count">30</td>
-									<td class="status-break"></td>
-									<td class="status-icon color-green">Submitted</td>
-									<td class="status-count">0</td>
+									<div class="question-section align-middle">
+										<?php echo $row_question['question_content'];?>
+									</div>
+									<div class="option-section col-md-12 col-sm-12 col-lg-12">
+										<hr>
+										<div class="col-md-12 col-sm-12 col-lg-12">
+											<?php
+											for($count=0;$count<4;$count++){
+												?>
+												<div class="col-md-12 col-sm-12 col-lg-12">
+													<div class="col-md-1 col-sm-1 col-lg-1 option-count">
+														<span><?php echo $option_codes[$count];?></span>
+													</div>
+													<label class="col-md-11 col-sm-11 col-lg-11">
+														<?php
+														if($_SESSION['techfest_questions'][$questionid]['user_answer']===$options_list[$count]){
+															?>
+															<input type="radio" name="quiz_options" checked value="<?php echo $options_list[$count];?>" />
+															<?php
+														}else {
+															?>
+															<input type="radio" name="quiz_options" value="<?php echo $options_list[$count];?>" />
+															<?php
+														}
+														?>
+														<div class="box">
+															<span><?php echo $options_list[$count];?></span>
+														</div>
+													</label>
+												</div>
 
-								</tr>
-								<tr>
-									<td class="status-icon color-orange">Not Attended (Review)</td>
-									<td class="status-count">0</td>
-									<td class="status-break"></td>
-									<td class="status-icon color-darkmagenta">Submitted (Review)</td>
-									<td class="status-count">0</td>
-								</tr>
-							</table>
-						</div>
-						<div class="final-submit col-md-12 col-sm-12 col-lg-12">
-							<div class="col-md-12 col-sm-12 col-lg-12 action-button bg-green">
-								Final Submit
-							</div>
+												<?php
+											}
+											?>
+
+										</div>
+										<div class="action-section">
+											<hr>
+											<div class="row">
+												<div class="col-md-12 col-sm-12 col-lg-12 action-button-group">
+													<?php
+													if(!$_SESSION['techfest_questions'][$questionid]['user_answer']==0){
+														?>
+														<div class="col-md-3 col-sm-3 col-lg-3 action-button bg-orange btn_reset_options">
+															Reset Selection
+														</div>
+														<?php
+													}else{
+														?>
+														<div class="col-md-3 col-sm-3 col-lg-3 action-button bg-orange btn_reset_options btn-hidden">
+															Reset Selection
+														</div>
+														<?php
+													} ?>
+													<div class="col-md-3 col-sm-3 col-lg-3 action-button bg-magenta btn_mark_review">
+														<?php
+														if (in_array($questionorederno, $_SESSION['reviewed_questions'])){
+															echo "Remove Review";
+														}else{
+															echo "Mark for Review";
+														} ?>
+													</div>
+													<?php
+													if($questionorederno<$question_count){
+														?>
+														<div class="col-md-3 col-sm-3 col-lg-3 action-button bg-green btn_next_question">
+															Next Question
+														</div>
+														<?php
+													}
+													?>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<div class="status-section col-md-3 col-sm-3 col-lg-3">
+									<div class="status-grid col-md-12 col-sm-12 col-lg-12">
+										<?php
+										for($i=1;$i<=$question_count;$i++){
+											if($i==$questionorederno){
+												?>
+												<div class="grid-button grid-button-active">
+													<?php echo $i ?>
+												</div>
+												<?php
+											}else{
+												if (in_array($i, $_SESSION['attended_questions'])){
+													if (in_array($i, $_SESSION['reviewed_questions'])){
+														?>
+														<div class="grid-button grid-button-magenta">
+															<?php echo $i ?>
+														</div>
+														<?php
+													}else{
+														?>
+														<div class="grid-button grid-button-green">
+															<?php echo $i ?>
+														</div>
+														<?php
+													}
+												}else{
+													if (in_array($i, $_SESSION['reviewed_questions'])){
+														?>
+														<div class="grid-button grid-button-orange">
+															<?php echo $i ?>
+														</div>
+														<?php
+													}else{
+														?>
+														<div class="grid-button">
+															<?php echo $i ?>
+														</div>
+														<?php
+													}
+												}
+											}
+										}
+										?>
+
+									</div>
+									<div class="col-md-12 col-sm-12 col-lg-12 table-status">
+										<table class="col-md-12 col-sm-12 col-lg-12">
+											<tr>
+												<td class="status-icon color-gray">Not Attended</td>
+												<td class="status-count">
+													<?php
+														$s_count=count(array_diff($_SESSION['attended_questions'],$_SESSION['reviewed_questions']));
+														$sr_count=count(array_intersect($_SESSION['attended_questions'],$_SESSION['reviewed_questions']));
+														$nar_count=count($_SESSION['reviewed_questions'])-$sr_count;
+														$na_count=$question_count-($s_count+$sr_count+$nar_count);
+														echo $na_count;
+													 ?>
+												</td>
+												<td class="status-break"></td>
+												<td class="status-icon color-green">Submitted</td>
+												<td class="status-count">
+													<?php
+														echo $s_count;
+													 ?>
+												</td>
+
+											</tr>
+											<tr>
+												<td class="status-icon color-orange">Not Attended (Review)</td>
+												<td class="status-count">
+													<?php
+														echo $nar_count;
+													 ?>
+												</td>
+												<td class="status-break"></td>
+												<td class="status-icon color-darkmagenta">Submitted (Review)</td>
+												<td class="status-count">
+													<?php
+														echo $sr_count;
+													 ?>
+												</td>
+											</tr>
+										</table>
+									</div>
+									<div class="final-submit col-md-12 col-sm-12 col-lg-12">
+										<div class="col-md-12 col-sm-12 col-lg-12 action-button bg-green">
+											Final Submit
+										</div>
+									</div>
+								</div>
+							<?php } ?>
 						</div>
 					</div>
-</div>
 					<!-- </div> -->
 				</div>
 			</div>
@@ -197,18 +278,11 @@ include_once 'config.php';
 	<script src="js/scripts.js"> </script>
 	<script>
 	setInterval(function(){
-      $('#timer-row').load(' #timer-row');
- },1000);
+		$('#timer-row').load(' #timer-row');
+	},1000);
 	</script>
-	<script>
-		$(document).ready(function () {
-			$('.grid-button').each(function () {
-				$(this).click(function () {
-					console.log((this.innerHTML).trim());
-					alert((this.innerHTML).trim());
-				})
-			})
-		})
+	<script src="./js/custom.js">
+
 	</script>
 	<!-- <script>
 	$(window).resize(function(){

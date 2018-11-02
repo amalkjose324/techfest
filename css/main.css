@@ -290,8 +290,22 @@ padding: 15px;
   font-weight: bold;
   font-size: 22px;
 }
+.grid-button-green{
+  background: url('../assets/bg-green.png') no-repeat center center !important;
+}
+.grid-button-orange{
+  background: url('../assets/bg-orange.png') no-repeat center center !important;
+}
+.grid-button-magenta{
+  background: url('../assets/bg-magenta.png') no-repeat center center !important;
+}
+.grid-button-active{
+  background: navy !important;
+  color: white !important;
+}
 .question-section{
-  min-height: 100px;
+  min-height: 85px;
+  margin: 17px;
   height: auto;
 }
 .action-button{
@@ -317,6 +331,9 @@ padding: 0px;
 .status-icon{
   width: 40%;
   border: 1px solid gray;
+}
+.btn-hidden{
+  display:none !important;
 }
 .status-break{
   width: 2%;
