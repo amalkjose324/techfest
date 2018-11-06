@@ -5,7 +5,7 @@ if (isset($_SESSION['userid'])) {
   $userid = $_SESSION['userid'];
   if($_SESSION['u_type']==2){
       echo "<script>window.location.href = 'admin-console.php';</script>";
-  }else{
+  }else   if($_SESSION['u_type']==1){
     echo "<script>window.location.href = 'console.php';</script>";
   }
 }else{
@@ -18,13 +18,18 @@ if (isset($_POST['login_submit'])) {
   $query = mysqli_query($con, "SELECT * FROM `techfest_users` WHERE `user_username`='$un' AND `user_password`='$pw'");
   if (mysqli_num_rows($query) > 0) {
     while ($row = mysqli_fetch_array($query)) {
-      $_SESSION['userid']=$row['user_id'];
       if ($row['user_type'] == 1) {
-        mysqli_query($con, "UPDATE `techfest_users` SET `user_round` = 1 WHERE `user_username`='$un' AND `user_round`=0 AND `user_type`=1");
         $_SESSION['u_type']=1;
-        echo "<script>window.location.href = 'console.php';</script>";
+        if ($row['user_round'] == 0) {
+          include_once 'modals.php';
+          $_SESSION['temp_userid']=$row['user_id'];
+        }else{
+            $_SESSION['userid']=$row['user_id'];
+          echo "<script>window.location.href = 'console.php';</script>";
+        }
       } else {
         $_SESSION['u_type']=2;
+          $_SESSION['userid']=$row['user_id'];
         echo "<script>window.location.href = 'admin-console.php';</script>";
       }
     }
@@ -59,7 +64,7 @@ if (isset($_POST['login_submit'])) {
   <!--===============================================================================================-->
 </head>
 
-<body>
+<body onkeydown="return (event.keyCode != 116)">
 
   <div class="limiter">
 
@@ -75,7 +80,7 @@ if (isset($_POST['login_submit'])) {
           </span>
 
           <div class="wrap-input100 validate-input" data-validate="Invalid Username..!">
-            <input class="input100" type="text" name="username" placeholder="Username" autocomplete=off>
+            <input class="input100" type="text" name="username" placeholder="Username" autocomplete=off autofocus>
             <span class="focus-input100"></span>
             <span class="symbol-input100">
               <i class="fa fa-user" aria-hidden="true"></i>

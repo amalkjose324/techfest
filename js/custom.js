@@ -78,3 +78,78 @@ $(document).on("click",".btn_mark_review",function () {
 $(document).on("change","input[name=quiz_options]",function () {
   $('.btn_reset_options').removeClass('btn-hidden');
 })
+
+$(document).on("click",".btn-final-submit",function () {
+  $('#modal_confirm_final_submit').modal('show');
+})
+$(document).on("click",".confirm_submission",function () {
+  $('#modal_confirm_final_submit').modal('hide');
+  $('#modal_result_generation_loader').modal('show');
+  $fun="final_submission";
+  var obj =false;
+  time=setInterval(function(){
+  $.ajax({
+    type:'post',
+    url:'./quizactions.php',
+    async:false,
+    data:{fun:$fun},
+    success:function(response){
+      console.log(response);
+      obj = JSON.parse(response)[0]['val'];
+      if(obj){
+        clearInterval(time);
+        pass_status = JSON.parse(response)[0]['pass_status'];
+        pass_mark = JSON.parse(response)[0]['pass_mark'];
+        $('.passmark_display').text(pass_mark);
+        if(pass_status){
+          $('.greeting_msg').html("<h5 style='color:green'> Congratulations..! You are eligible for the next Round.</h5>");
+          $('.exit_next_round').html("<button type='button' class='btn btn-success continue_to_next_round' data-dismiss='modal'>Continue to Next Round</button>");
+
+        }else{
+          $('.greeting_msg').html("<h5 style='color:red'>Sorry, You aren't eligible for next round. Thanks for participation</h5>");
+          $('.exit_next_round').html("<button type='button' class='btn btn-danger exit_from_quiz' data-dismiss='modal'>Exit from Quiz</button>");
+        }
+        $('#modal_result_view').modal('show');
+        $('#modal_result_generation_loader').modal('hide');
+      }
+    }
+  });
+},5000);
+})
+$(document).on("click",".exit_from_quiz",function () {
+  $fun="exit_from_quiz";
+  $.ajax({
+    type:'post',
+    url:'./quizactions.php',
+    async:false,
+    data:{fun:$fun},
+    success:function(response){
+      console.log(response);
+      obj = JSON.parse(response)[0]['val'];
+      if(obj){
+        window.location.href="./";
+      }
+    }
+  });
+})
+$(document).on("click",".continue_to_next_round",function () {
+  $fun="continue_to_next_round";
+  $.ajax({
+    type:'post',
+    url:'./quizactions.php',
+    async:false,
+    data:{fun:$fun},
+    success:function(response){
+      console.log(response);
+      obj = JSON.parse(response)[0]['val'];
+      if(obj){
+        window.location.href="";
+      }
+    }
+  });
+})
+$(document).ready(function () {
+  setTimeout(function() {
+    $("#proceed").show();
+  }, 15000);
+})

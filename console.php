@@ -1,7 +1,6 @@
 <?php
 $login_error = "";
 include_once 'config.php';
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,8 +25,15 @@ include_once 'config.php';
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<!--===============================================================================================-->
+	<style>
+	.timer-row{
+		top:0px !important;
+	}
+	</style>
 </head>
 <body>
+	<div class="console-loader">
+	</div>
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-quiz100 quiz-bg col-md-11 col-sm-11 col-lg-11">
@@ -39,7 +45,7 @@ include_once 'config.php';
 					<div class="col-md-10 col-sm-10 col-lg-10">
 						<h5><b class="big_name"><?php echo $user_name ?></b></h5><?php echo $user_college ?><hr>
 					</div>
-					<div class="row" id="timer-row">
+					<div class="row timer-row" id="timer-row" style="top:0px;">
 
 						<div class="timer-view col-md-2 col-sm-2 col-lg-2" id="timer-view">
 							<h5 class="timer-head">Time Remaining</h5>
@@ -51,10 +57,18 @@ include_once 'config.php';
 							$quiz_time_end = $_SESSION['quiz_end_time'];
 							$time_left     = $quiz_time_end - $quiz_time_now;
 							if ($time_left < 1) {
-								echo "0 : 0";
-								echo "<script>alert('Time Completed!');</script>";
+								echo "<b style='color:red'> 00 : 00 </b>";
 							} else {
-								echo floor($time_left / 60) . " : " . $time_left % 60;
+								echo "<b style='color:red'>".addPreZeroTime(floor($time_left / 60)) . " : " . addPreZeroTime($time_left % 60) ."</b>";
+							}
+
+							function addPreZeroTime($value)
+							{
+								if($value<10){
+									return "0".$value;
+								}else{
+									return $value;
+								}
 							}
 							?>
 							<hr>
@@ -213,19 +227,19 @@ include_once 'config.php';
 												<td class="status-icon color-gray">Not Attended</td>
 												<td class="status-count">
 													<?php
-														$s_count=count(array_diff($_SESSION['attended_questions'],$_SESSION['reviewed_questions']));
-														$sr_count=count(array_intersect($_SESSION['attended_questions'],$_SESSION['reviewed_questions']));
-														$nar_count=count($_SESSION['reviewed_questions'])-$sr_count;
-														$na_count=$question_count-($s_count+$sr_count+$nar_count);
-														echo $na_count;
-													 ?>
+													$s_count=count(array_diff($_SESSION['attended_questions'],$_SESSION['reviewed_questions']));
+													$sr_count=count(array_intersect($_SESSION['attended_questions'],$_SESSION['reviewed_questions']));
+													$nar_count=count($_SESSION['reviewed_questions'])-$sr_count;
+													$na_count=$question_count-($s_count+$sr_count+$nar_count);
+													echo $na_count;
+													?>
 												</td>
 												<td class="status-break"></td>
 												<td class="status-icon color-green">Submitted</td>
 												<td class="status-count">
 													<?php
-														echo $s_count;
-													 ?>
+													echo $s_count;
+													?>
 												</td>
 
 											</tr>
@@ -233,22 +247,180 @@ include_once 'config.php';
 												<td class="status-icon color-orange">Not Attended (Review)</td>
 												<td class="status-count">
 													<?php
-														echo $nar_count;
-													 ?>
+													echo $nar_count;
+													?>
 												</td>
 												<td class="status-break"></td>
 												<td class="status-icon color-darkmagenta">Submitted (Review)</td>
 												<td class="status-count">
 													<?php
-														echo $sr_count;
-													 ?>
+													echo $sr_count;
+													?>
 												</td>
 											</tr>
 										</table>
 									</div>
 									<div class="final-submit col-md-12 col-sm-12 col-lg-12">
-										<div class="col-md-12 col-sm-12 col-lg-12 action-button bg-green">
+										<div class="col-md-12 col-sm-12 col-lg-12 action-button bg-green btn-final-submit">
 											Final Submit
+										</div>
+									</div>
+								</div>
+
+								<div class="modal fade" id="modal_result_generation_loader" role="dialog" data-backdrop="static" data-keyboard="false">
+									<div class="modal-dialog" style="min-width: 40%;">
+										<div class="modal-content">
+											<div class="modal-body">
+												<div class="col-sm-12" style="text-align: -webkit-center;">
+														Generating Result, Please wait..!
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+								<div class="modal fade" id="modal_confirm_final_submit" role="dialog" data-backdrop="static" data-keyboard="false">
+									<div class="modal-dialog" style="min-width: 40%;">
+										<!-- Modal content-->
+										<div class="modal-content">
+											<div class="modal-header">
+												<h4 class="modal-title">Confirm Your Submission</h4>
+											</div>
+											<div class="modal-body">
+												<p>Are you sure want to submit your answers now?</p><br>
+												<div class="col-sm-12" style="text-align: -webkit-center;">
+													<table border="1" class="col-sm-10 review_class">
+														<tr style="color:red">
+															<th width="75%" >Total Number of Questions</th>
+															<td width="25%">
+																<?php
+																echo $s_count + $na_count + $sr_count + $nar_count;
+																?>
+															</td>
+														</tr>
+														<tr>
+															<th>Submitted Questions</th>
+															<td>
+																<?php
+																echo $s_count;
+																?>
+															</td>
+														</tr>
+														<tr>
+															<th>Not Attended Questions</th>
+															<td>
+																<?php
+																echo $na_count;
+																?>
+															</td>
+														</tr>
+														<tr>
+															<th>Submitted Review Questions</th>
+															<td>
+																<?php
+																echo $sr_count;
+																?>
+															</td>
+														</tr>
+														<tr>
+															<th>Non-Submitted Review Questions</th>
+															<td>
+																<?php
+																echo $nar_count;
+																?>
+															</td>
+														</tr>
+													</table>
+												</div>
+											</div>
+											<div class="modal-footer">
+												<?php
+													if($time_left>0){
+														?>
+															<button type="button" class="btn btn-danger" data-dismiss="modal">Back to Questions</button>
+														<?php
+													}
+												 	?>
+												<button type="button" class="btn btn-success confirm_submission">Confirm Submission</button>
+											</div>
+
+										</div>
+									</div>
+								</div>
+								<div class="modal fade" id="modal_result_view" role="dialog" data-backdrop="static" data-keyboard="false">
+									<div class="modal-dialog" style="min-width: 92%;">
+										<!-- Modal content-->
+										<div class="modal-content">
+											<div class="modal-body col-sm-12 row">
+												<div class="col-sm-4 col-md-4 col-lg-4">
+													<div class="login100-pic js-tilt" data-tilt="" style="will-change: transform; transform: perspective(300px) rotateX(0deg) rotateY(0deg); width:100%;">
+														<img src="quiz.png" alt="IMG">
+													</div>
+												</div>
+												<div class="col-sm-8 col-md-8 col-lg-8" style="display:inline-block;">
+													<h1 class="text-center">Result : <?php echo $round_text ;?> </h1><hr>
+													<?php
+														$currect_answer_count=0;
+														$wrong_answer_count=0;
+														$mark=0;
+
+														foreach ($_SESSION['techfest_questions'] as $question) {
+															if($question['currect_answer']===$question['user_answer']){
+																$currect_answer_count++;
+																$mark+=4;
+															}else{
+																$wrong_answer_count++;
+																if($round==2){
+																	$mark--;
+																}
+															}
+														}
+														$_SESSION['total_mark']=$mark;
+													 ?>
+													<div class="col-sm-12" style="text-align: -webkit-center;">
+														<table border="1" width="100%" class="result_table" style="text-align: -webkit-center;">
+															<tr>
+																<th colspan="4" class="greeting_msg">
+																0
+																</th>
+															</tr>
+															<tr>
+																<th colspan="2">	<h5> Your Score</h5></th>
+																<td colspan="2">	<h5> <?php echo $mark." / ".($question_count*4)?></h5></td>
+															</tr>
+															<tr>
+																<th colspan="2">	<h5> Pass Mark</h5></th>
+																<td colspan="2">	<h5 class="passmark_display"></h5></td>
+															</tr>
+															<tr>
+																<th width="20%"> Full Name</th>
+																<td width="45%"> <?php echo $user_name;?></td>
+																<th width="20%"> Total Questions</th>
+																<td	width="15%"> <?php echo $question_count;?></td>
+															</tr>
+															<tr>
+																<th> College</th>
+																<td> <?php echo $user_college;?></td>
+																<th> Answerd Questions</th>
+																<td> <?php echo $s_count+$sr_count;?></td>
+															</tr>
+															<tr>
+																<th>Quiz Round</th>
+																<td> <?php echo $round_text;?></td>
+																<th>Non-Answerd Questions</th>
+																<td> <?php echo $na_count+$nar_count;?></td>
+															</tr>
+
+														</table>
+													</div>
+												</div>
+
+											</div>
+											<div class="modal-footer exit_next_round">
+
+
+											</div>
 										</div>
 									</div>
 								</div>
@@ -260,6 +432,10 @@ include_once 'config.php';
 			</div>
 
 		</div>
+
+
+
+
 
 	</body>
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -278,12 +454,17 @@ include_once 'config.php';
 	<script src="js/scripts.js"> </script>
 	<script>
 	setInterval(function(){
-		$('#timer-row').load(' #timer-row');
+		$('#timer-row').load('  #timer-row');
 	},1000);
 	</script>
 	<script src="./js/custom.js">
-
 	</script>
+	<?php
+	if($time_left<1){
+		echo "<script> $('#modal_confirm_final_submit').modal('show');</script>";
+	}
+	 ?>
+
 	<!-- <script>
 	$(window).resize(function(){
 	window.resizeTo(screen.width,screen.height);

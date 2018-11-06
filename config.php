@@ -21,7 +21,7 @@ $user_name="";
 $user_college="";
 $user_query = mysqli_query($con, "SELECT * FROM `techfest_users` WHERE `user_id`=$userid");
 while ($row = mysqli_fetch_array($user_query)) {
-	$round=$row['user_round'];
+	$round=$_SESSION['user_round']=$row['user_round'];
 	$user_name=$row['user_fullname'];
 	$user_college=$row['user_college'];
 }
@@ -39,6 +39,16 @@ else if($round==2){
 	$duration=600;
 	$round_text="Round-2";
 	$round_descripton ="20 Questions : Negative Marking : Yes (Correct : +4, Incurrect : -1)";
+}else if($round==0){
+	echo "<script>window.location.href = './';</script>";
+}else if($round==5){
+	session_destroy();
+	echo "<script>window.location.href = './';</script>";
+}else if($round==3){
+
+	echo "<script>alert('Next round will be after 10 minuts at Admission Cell')</script>";
+	echo "<script>window.location.href = './';</script>";
+	session_destroy();
 }
 
 if(!isset($_SESSION['question_order'])){
