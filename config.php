@@ -14,7 +14,6 @@ if(!isset($_SESSION['attended_questions'])){
 if(!isset($_SESSION['reviewed_questions'])){
 	$_SESSION['reviewed_questions']=array();
 }
-
 $userid=$_SESSION['userid'];
 $round=0;
 $user_name="";
@@ -42,13 +41,20 @@ else if($round==2){
 }else if($round==0){
 	echo "<script>window.location.href = './';</script>";
 }else if($round==5){
+	mysqli_query($con,"UPDATE `techfest_users` SET `user_login_status`=0 WHERE `user_id`=$userid");
 	echo "<script>alert('You are not permitted to view this page because, you are not eligible for next round.)</script>";
-	echo "<script>window.location.href = './';</script>";
 	session_destroy();
+	echo "<script>window.location.href = './';</script>";
 }else if($round==3){
+	mysqli_query($con,"UPDATE `techfest_users` SET `user_login_status`=0 WHERE `user_id`=$userid");
 	echo "<script>alert('Next round will be after 10 minuts at Admission Cell')</script>";
-	echo "<script>window.location.href = './';</script>";
 	session_destroy();
+	echo "<script>window.location.href = './';</script>";
+}else if($round==4){
+	mysqli_query($con,"UPDATE `techfest_users` SET `user_login_status`=0 WHERE `user_id`=$userid");
+	echo "<script>alert('Result will be published later')</script>";
+	session_destroy();
+	echo "<script>window.location.href = './';</script>";
 }
 
 if(!isset($_SESSION['question_order'])){

@@ -15,9 +15,10 @@ if (isset($_SESSION['userid'])) {
 if (isset($_POST['login_submit'])) {
   $un    = $_POST['username'];
   $pw    = $_POST['password'];
-  $query = mysqli_query($con, "SELECT * FROM `techfest_users` WHERE `user_username`='$un' AND `user_password`='$pw'");
+  $query = mysqli_query($con, "SELECT * FROM `techfest_users` WHERE `user_username`='$un' AND `user_password`='$pw' AND `user_login_status`=0");
   if (mysqli_num_rows($query) > 0) {
     while ($row = mysqli_fetch_array($query)) {
+      mysqli_query($con,"UPDATE `techfest_users` SET `user_login_status`=1 WHERE `user_username`='$un'");
       if ($row['user_type'] == 1) {
         $_SESSION['u_type']=1;
         if ($row['user_round'] == 0) {
@@ -43,11 +44,11 @@ if (isset($_POST['login_submit'])) {
 <html lang="en">
 
 <head>
-  <title>Login V1</title>
+  <title>Brain Droop : Login</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!--===============================================================================================-->
-  <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+  	<link rel="icon" type="image/png" href="favicon.ico" />
   <!--===============================================================================================-->
   <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
   <!--===============================================================================================-->

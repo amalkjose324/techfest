@@ -46,6 +46,25 @@ if(isset($_POST['fun'])&&$_POST['fun']=="question_change_next_question"){
   echo json_encode($arr);
   exit();
 }
+if(isset($_POST['fun'])&&$_POST['fun']=="question_final_submit"){
+  $arr = array();
+  $current_question=$_SESSION['current_question'];
+  $current_question_id=$_SESSION['question_order'][$current_question-1];
+  $selected_val=$_POST['selected_option'];
+  if(!$selected_val==0){
+    if ((array_search($current_question, $_SESSION['attended_questions'])) === false) {
+      array_push($_SESSION['attended_questions'], $current_question);
+    }
+  }else{
+    if (($key = array_search($current_question, $_SESSION['attended_questions'])) !== false) {
+      array_splice($_SESSION['attended_questions'], $key, 1);
+    }
+  }
+  $_SESSION['techfest_questions'][$current_question_id]['user_answer']=$selected_val;
+  array_push($arr, array("val" => true));
+  echo json_encode($arr);
+  exit();
+}
 if(isset($_POST['fun'])&&$_POST['fun']=="question_option_reset"){
   $arr = array();
   $current_question=$_SESSION['current_question'];
@@ -59,8 +78,10 @@ if(isset($_POST['fun'])&&$_POST['fun']=="question_option_reset"){
   exit();
 }
 if(isset($_POST['fun'])&&$_POST['fun']=="reset_session"){
+  $userid=$_SESSION['userid'];
   $arr = array();
-  if($_POST['password']=="0324"){
+  if($_POST['password']=="123"){
+    mysqli_query($con,"UPDATE `techfest_users` SET `user_login_status`=0 WHERE `user_id`=$userid");
     session_destroy();
     array_push($arr, array("val" => true));
   }else{
@@ -82,10 +103,22 @@ if(isset($_POST['fun'])&&$_POST['fun']=="begin_round_1_modal"){
   echo json_encode($arr);
   exit();
 }
+if(isset($_POST['fun'])&&$_POST['fun']=="round_2_winner"){
+  $userid=$_SESSION['userid'];
+  $arr = array();
+  if(mysqli_query($con, "UPDATE `techfest_users` SET `user_round` = 4 WHERE `user_id`=$userid")){
+    array_push($arr, array("val" => true));
+    session_destroy();
+  }else{
+    array_push($arr, array("val" => false));
+  }
+  echo json_encode($arr);
+  exit();
+}
 if(isset($_POST['fun'])&&$_POST['fun']=="exit_from_quiz"){
   $userid=$_SESSION['userid']=$_SESSION['temp_userid'];
   $arr = array();
-  if(mysqli_query($con, "UPDATE `techfest_users` SET `user_round` = 5 WHERE `user_id`=$userid")){
+  if(mysqli_query($con, "UPDATE `techfest_users` SET `user_round` = 5,`user_login_status`=0 WHERE `user_id`=$userid")){
     session_destroy();
     array_push($arr, array("val" => true));
   }else{
@@ -97,6 +130,7 @@ if(isset($_POST['fun'])&&$_POST['fun']=="exit_from_quiz"){
 if(isset($_POST['fun'])&&$_POST['fun']=="final_submission"){
   $userid=$_SESSION['userid'];
   $user_round=$_SESSION['user_round'];
+  $_SESSION['final_submit']=true;
   mysqli_query($con, "UPDATE `techfest_users` SET `user_submission` = 1 WHERE `user_id`=$userid");
   $currect_answer_count=0;
   $wrong_answer_count=0;
@@ -118,17 +152,17 @@ if(isset($_POST['fun'])&&$_POST['fun']=="final_submission"){
   if(mysqli_num_rows($selcheck)>0){
     array_push($arr, array("val" => false));
   }else{
-      $passmark=0;
-      $winners=$user_round==1?19:4;
-      $selcheck=mysqli_query($con,"SELECT `user_round".$user_round."_mark` AS `mark` FROM `techfest_users` ORDER BY `user_round".$user_round."_mark` DESC LIMIT $winners,1");
-      while ($selcheckrow=mysqli_fetch_array($selcheck)) {
-        $passmark=$selcheckrow['mark'];
-      }
-      if($mark>=$passmark){
-        array_push($arr, array("val" => true,"pass_status"=>true,"pass_mark"=>$passmark));
-      }else{
-        array_push($arr, array("val" => true,"pass_status"=>false,"pass_mark"=>$passmark));
-      }
+    $passmark=0;
+    $winners=$user_round==1?19:4;
+    $selcheck=mysqli_query($con,"SELECT `user_round".$user_round."_mark` AS `mark` FROM `techfest_users` ORDER BY `user_round".$user_round."_mark` DESC LIMIT $winners,1");
+    while ($selcheckrow=mysqli_fetch_array($selcheck)) {
+      $passmark=$selcheckrow['mark'];
+    }
+    if($mark>=$passmark){
+      array_push($arr, array("val" => true,"pass_status"=>true,"pass_mark"=>$passmark,"userround"=>$user_round));
+    }else{
+      array_push($arr, array("val" => true,"pass_status"=>false,"pass_mark"=>$passmark,"userround"=>$user_round));
+    }
   }
   echo json_encode($arr);
   exit();
@@ -149,6 +183,15 @@ if(isset($_POST['fun'])&&$_POST['fun']=="question_review_set_reset"){
       array_splice($_SESSION['attended_questions'], $key, 1);
     }
   }
+  if (($key = array_search($current_question, $_SESSION['reviewed_questions'])) !== false) {
+    array_splice($_SESSION['reviewed_questions'], $key, 1);
+  }else{
+    array_push($_SESSION['reviewed_questions'], $current_question);
+  }
+  array_push($arr, array("val" => true));
+  echo json_encode($arr);
+  exit();
+
 }
 if(isset($_POST['fun'])&&$_POST['fun']=="continue_to_next_round"){
   $arr = array();
@@ -159,6 +202,7 @@ if(isset($_POST['fun'])&&$_POST['fun']=="continue_to_next_round"){
   unset($_SESSION['techfest_questions']);
   unset($_SESSION['attended_questions']);
   unset($_SESSION['reviewed_questions']);
+  unset($_SESSION['final_submit']);
   mysqli_query($con, "UPDATE `techfest_users` SET `user_round` = `user_round`+1 WHERE `user_id`=$userid");
 
   array_push($arr, array("val" => true));
@@ -169,7 +213,7 @@ if(isset($_POST['fun'])&&$_POST['fun']=="continue_to_next_round"){
 if(isset($_POST['fun'])&&$_POST['fun']=="instruction_timer"){
   $arr = array();
   if (!isset($_SESSION['instruction_end_time'])) {
-    $_SESSION['instruction_end_time'] = strtotime(date('Y-m-d H:i:s')) + 10;
+    $_SESSION['instruction_end_time'] = strtotime(date('Y-m-d H:i:s')) + 60;
     // echo "yes";
   }
   $instruction_time_now = strtotime(date('Y-m-d H:i:s'));

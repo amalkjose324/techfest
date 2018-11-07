@@ -104,6 +104,23 @@ $(document).on("click",".confirm_submission",function () {
         clearInterval(time);
         pass_status = JSON.parse(response)[0]['pass_status'];
         pass_mark = JSON.parse(response)[0]['pass_mark'];
+        user_round = JSON.parse(response)[0]['userround'];
+        if(user_round==2){
+          $.ajax({
+            type:'post',
+            url:'./quizactions.php',
+            async:false,
+            data:{fun:"round_2_winner"},
+            success:function(response2){
+              console.log(response2);
+              obj2 = JSON.parse(response2)[0]['val'];
+              if(obj){
+                alert("Result will be published later");
+                window.location.href="./";
+              }
+            }
+          });
+        }else{
         $('.passmark_display').text(pass_mark);
         if(pass_status){
           $('.greeting_msg').html("<h5 style='color:green'> Congratulations..! You are eligible for the next Round.</h5>");
@@ -114,6 +131,7 @@ $(document).on("click",".confirm_submission",function () {
           $('.exit_next_round').html("<button type='button' class='btn btn-danger exit_from_quiz' data-dismiss='modal'>Exit from Quiz</button>");
         }
         $('#modal_result_view').modal('show');
+      }
         $('#modal_result_generation_loader').modal('hide');
       }
     }

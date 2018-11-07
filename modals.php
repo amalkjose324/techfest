@@ -29,29 +29,23 @@
           <li><b>Round-1 : </b><br>
             <ol type = "a">
               <li style="margin-left:15px;">a) This round consists 30 Multiple choice questions that are worth 4 point each and No Negative Marking.</li>
-              <li style="margin-left:15px;">b) There is a time limit of 15 Minutes to complete this round.</li>
+              <li style="margin-left:15px;">b) There is a time limit of 15 Minutes to complete this round and, the result generation time may vary.</li>
               <li style="margin-left:15px;">c) The result, including mark and next round eligiblity will be automatically generated after the final submission of this round.</li>
-              <li style="margin-left:15px;">d) The result generation time may be vary depends on the all participants submission.</li>
             </ol>
           </li>
           <li><b>Round-2 : </b><br>
             <ol type = "a">
               <li style="margin-left:15px;">a) This round consists 20 Multiple choice questions that are worth 4 point each and including Negative mark (-1) for each wrong answers.</li>
-              <li style="margin-left:15px;">b) There is a time limit of 10 Minutes to complete this round.</li>
-              <li style="margin-left:15px;">c) The result, including mark and next round eligiblity will be automatically generated after the final submission of this round.</li>
-              <li style="margin-left:15px;">d) The result generation time may be vary depends on the all participants submission.</li>
-              <li style="margin-left:15px;">e) If there is in any tie in the results, the previous round marks also be considered.</li>
+              <li style="margin-left:15px;">b) There is a time limit of 10 Minutes to complete this round and, the result generation time may vary.</li>
+              <li style="margin-left:15px;">c) If there is in any tie in the results, the completed time and previous round marks also be considered.</li>
             </ol>
           </li>
           <li><b>Round-3 : </b><br>
             <ol type = "a">
               <li style="margin-left:15px;">a) This round consists Multiple choice questions and includes Passing Questions .</li>
-              <li style="margin-left:15px;">b) The question Q given for participant X first time, it will be considered as Primary question and if it is passed to another participant Y, the question will be seconday for Y.</li>
-              <li style="margin-left:15px;">c) Each primary questions have the time limit of 60 Seconds and secondary questions have the time limit of 30 Seconds.</li>
-              <li style="margin-left:15px;">d) Each currect answer of primary questions have 10 Marks and wrong answer have Negative marking of 5 marks .</li>
-              <li style="margin-left:15px;">e) Each currect answer of secondary / passed questions have 5 Marks and wrong answer have Negative marking of 2 marks .</li>
-              <li style="margin-left:15px;">d) The result generation time may be vary depends on the all participants submission.</li>
-              <li style="margin-left:15px;">e) If there is in any tie in the results, the previous round marks also be considered.</li>
+              <li style="margin-left:15px;">b) Each primary questions have the time limit of 60 Seconds and secondary questions have the time limit of 30 Seconds.</li>
+              <li style="margin-left:15px;">c) Each currect answer of primary questions have 10 Marks and wrong answer have Negative marking of 5 marks .</li>
+              <li style="margin-left:15px;">d) Each currect answer of secondary / passed questions have 5 Marks and wrong answer have Negative marking of 2 marks .</li>
             </ol>
           </li>
         </ol>

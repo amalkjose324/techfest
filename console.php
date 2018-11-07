@@ -6,7 +6,7 @@ include_once 'config.php';
 <html lang="en">
 
 <head>
-	<title>Quiz Console</title>
+	<title>Brain Droop : Console</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<!--===============================================================================================-->
@@ -463,8 +463,10 @@ include_once 'config.php';
 	if($time_left<1){
 		echo "<script> $('#modal_confirm_final_submit').modal('show');</script>";
 	}
+	if(isset($_SESSION['final_submit'])){
+		echo "<script>$('.confirm_submission').click();</script>";
+	}
 	 ?>
-
 	<!-- <script>
 	$(window).resize(function(){
 	window.resizeTo(screen.width,screen.height);
