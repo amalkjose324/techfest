@@ -338,7 +338,7 @@ include_once 'config.php';
 												<?php
 													if($time_left>0){
 														?>
-															<button type="button" class="btn btn-danger" data-dismiss="modal">Back to Questions</button>
+															<button type="button" class="btn btn-danger backtoquiz" data-dismiss="modal">Back to Questions</button>
 														<?php
 													}
 												 	?>

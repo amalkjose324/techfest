@@ -42,10 +42,10 @@ else if($round==2){
 }else if($round==0){
 	echo "<script>window.location.href = './';</script>";
 }else if($round==5){
-	session_destroy();
+	echo "<script>alert('You are not permitted to view this page because, you are not eligible for next round.)</script>";
 	echo "<script>window.location.href = './';</script>";
+	session_destroy();
 }else if($round==3){
-
 	echo "<script>alert('Next round will be after 10 minuts at Admission Cell')</script>";
 	echo "<script>window.location.href = './';</script>";
 	session_destroy();
@@ -61,7 +61,5 @@ if(!isset($_SESSION['current_question'])){
 }
 
 $option_codes=array("A","B","C","D");
-
-
 
 ?>

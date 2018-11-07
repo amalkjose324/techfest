@@ -78,8 +78,12 @@ $(document).on("click",".btn_mark_review",function () {
 $(document).on("change","input[name=quiz_options]",function () {
   $('.btn_reset_options').removeClass('btn-hidden');
 })
+$(document).on("click",".backtoquiz",function () {
+  $('.console-loader').hide();
+})
 
 $(document).on("click",".btn-final-submit",function () {
+  $('.console-loader').show();
   $('#modal_confirm_final_submit').modal('show');
 })
 $(document).on("click",".confirm_submission",function () {
@@ -149,7 +153,17 @@ $(document).on("click",".continue_to_next_round",function () {
   });
 })
 $(document).ready(function () {
+  $('.console-loader').hide();
   setTimeout(function() {
     $("#proceed").show();
   }, 15000);
+
+  $("body").on("contextmenu",function(e){
+       return false;
+   });
+
+   $('body').bind('cut copy paste', function (e) {
+        e.preventDefault();
+    });
+
 })

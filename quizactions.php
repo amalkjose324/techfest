@@ -169,7 +169,7 @@ if(isset($_POST['fun'])&&$_POST['fun']=="continue_to_next_round"){
 if(isset($_POST['fun'])&&$_POST['fun']=="instruction_timer"){
   $arr = array();
   if (!isset($_SESSION['instruction_end_time'])) {
-    $_SESSION['instruction_end_time'] = strtotime(date('Y-m-d H:i:s')) + 180;
+    $_SESSION['instruction_end_time'] = strtotime(date('Y-m-d H:i:s')) + 10;
     // echo "yes";
   }
   $instruction_time_now = strtotime(date('Y-m-d H:i:s'));
