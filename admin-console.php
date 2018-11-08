@@ -10,7 +10,7 @@ function pre_postRemover($value)
 {
   $value = preg_replace('/^\"/', '', $value);
   $value = preg_replace('/\"$/', '', $value);
-  return $value;
+  return trim($value);
 }
 if(isset($_POST['filesubmit'])){
   $type=$_POST['filetype'];

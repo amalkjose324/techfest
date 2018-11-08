@@ -144,7 +144,9 @@ if(isset($_POST['fun'])&&$_POST['fun']=="final_submission"){
     }else{
       $wrong_answer_count++;
       if($user_round==2){
-        $mark--;
+        if(!$question['user_answer']==0){
+          $mark--;
+        }
       }
     }
   }
@@ -155,7 +157,7 @@ if(isset($_POST['fun'])&&$_POST['fun']=="final_submission"){
     array_push($arr, array("val" => false));
   }else{
     $passmark=0;
-    $winners=$user_round==1?20:4;
+    $winners=$user_round==1?3:4;
     $selcheck=mysqli_query($con,"SELECT `user_round".$user_round."_mark` AS `mark` FROM `techfest_users` ORDER BY `user_round".$user_round."_mark` DESC LIMIT $winners,1");
     while ($selcheckrow=mysqli_fetch_array($selcheck)) {
       $passmark=$selcheckrow['mark'];
