@@ -33,13 +33,14 @@ if(isset($_POST['filesubmit'])){
     $row = explode($tab, $string);
     // print_r($row);
     if($type==2){
-      $question=pre_postRemover($row[0]);
+      $question=pre_postRemover($row[1]);
       $round=$_POST['question_round'];
-      $option1=pre_postRemover($row[1]);
-      $option2=pre_postRemover($row[2]);
-      $option3=pre_postRemover($row[3]);
-      $option4=pre_postRemover($row[4]);
-      $q_insert_query=mysqli_query($con,"INSERT INTO `techfest_questions`(`question_content`, `question_option_currect`, `question_option_wrong1`, `question_option_wrong2`, `question_option_wrong3`, `question_round`) VALUES ('$question','$option1','$option2','$option3','$option4',$round)");
+      $qid=pre_postRemover($row[0]);
+      $option1=pre_postRemover($row[2]);
+      $option2=pre_postRemover($row[3]);
+      $option3=pre_postRemover($row[4]);
+      $option4=pre_postRemover($row[5]);
+      $q_insert_query=mysqli_query($con,"INSERT INTO `techfest_questions`(`question_id`,`question_content`, `question_option_currect`, `question_option_wrong1`, `question_option_wrong2`, `question_option_wrong3`, `question_round`) VALUES ($qid,'$question','$option1','$option2','$option3','$option4',$round)");
       if(mysqli_affected_rows($con)>0){
         $uq_count++;
       }
@@ -130,6 +131,7 @@ if(isset($_POST['filesubmit'])){
                   <option selected disabled>Select Round</option>
                   <option value="1">Round-1</option>
                   <option value="2">Round-2</option>
+                  <option value="3">Round-3</option>
                 </select>
               </div>
               <div class="form-group">
@@ -294,7 +296,7 @@ $(document).ready(function () {
     var roundval=$('#question_round').val();
     var filename=$('#file').val();
     var fileRegExp= /\.txt$/;
-    var numRegExp=/^[1-2]{1}$/;
+    var numRegExp=/^[1-3]{1}$/;
     if(!numRegExp.test(ftype)){
       alert("Select an upload type!");
       $('#filetype').focus();

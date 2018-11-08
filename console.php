@@ -1,6 +1,7 @@
 <?php
 $login_error = "";
 include_once 'config.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -79,7 +80,7 @@ include_once 'config.php';
 							<?php
 							$questionorederno=$_SESSION['current_question'];
 							$questionid=$_SESSION['question_order'][$questionorederno-1];
-							$questions_query = mysqli_query($con, "SELECT * FROM `techfest_questions` WHERE `question_id`=$questionid");
+							$questions_query = mysqli_query($con, "SELECT * FROM `techfest_questions` WHERE  `question_round`=$round AND `question_id`=$questionid");
 							while ($row_question = mysqli_fetch_array($questions_query)) {
 								$options_list=array($row_question['question_option_currect'],$row_question['question_option_wrong1'],$row_question['question_option_wrong2'],$row_question['question_option_wrong3']);
 								shuffle($options_list);
@@ -467,6 +468,10 @@ include_once 'config.php';
 		echo "<script>$('.confirm_submission').click();</script>";
 	}
 	 ?>
+	 <?php
+	 echo '<meta http-equiv="refresh" ' .
+						'content="' . $_SESSION['quiz_remain_time'] . ';url=./">';
+?>
 	<!-- <script>
 	$(window).resize(function(){
 	window.resizeTo(screen.width,screen.height);

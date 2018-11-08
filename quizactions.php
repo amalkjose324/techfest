@@ -203,6 +203,7 @@ if(isset($_POST['fun'])&&$_POST['fun']=="continue_to_next_round"){
   unset($_SESSION['current_question']);
   unset($_SESSION['question_order']);
   unset($_SESSION['quiz_end_time']);
+  unset($_SESSION['finished']);
   unset($_SESSION['techfest_questions']);
   unset($_SESSION['attended_questions']);
   unset($_SESSION['reviewed_questions']);
@@ -217,7 +218,7 @@ if(isset($_POST['fun'])&&$_POST['fun']=="continue_to_next_round"){
 if(isset($_POST['fun'])&&$_POST['fun']=="instruction_timer"){
   $arr = array();
   if (!isset($_SESSION['instruction_end_time'])) {
-    $_SESSION['instruction_end_time'] = strtotime(date('Y-m-d H:i:s')) + 60;
+    $_SESSION['instruction_end_time'] = strtotime(date('Y-m-d H:i:s')) + 10;
     // echo "yes";
   }
   $instruction_time_now = strtotime(date('Y-m-d H:i:s'));
