@@ -131,7 +131,9 @@ if(isset($_POST['fun'])&&$_POST['fun']=="final_submission"){
   $userid=$_SESSION['userid'];
   $user_round=$_SESSION['user_round'];
   $_SESSION['final_submit']=true;
-  mysqli_query($con, "UPDATE `techfest_users` SET `user_submission` = 1 WHERE `user_id`=$userid");
+  $time_remain=$_SESSION['quiz_remain_time'];
+  mysqli_query($con, "UPDATE `techfest_users` SET `user_submission` = 1,`user_round_2_time`=$time_remain WHERE `user_id`=$userid");
+  $_SESSION['quiz_end_time']=strtotime(date('Y-m-d H:i:s'));
   $currect_answer_count=0;
   $wrong_answer_count=0;
   $mark=0;
@@ -153,7 +155,7 @@ if(isset($_POST['fun'])&&$_POST['fun']=="final_submission"){
     array_push($arr, array("val" => false));
   }else{
     $passmark=0;
-    $winners=$user_round==1?19:4;
+    $winners=$user_round==1?20:4;
     $selcheck=mysqli_query($con,"SELECT `user_round".$user_round."_mark` AS `mark` FROM `techfest_users` ORDER BY `user_round".$user_round."_mark` DESC LIMIT $winners,1");
     while ($selcheckrow=mysqli_fetch_array($selcheck)) {
       $passmark=$selcheckrow['mark'];

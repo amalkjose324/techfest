@@ -55,7 +55,7 @@ include_once 'config.php';
 							}
 							$quiz_time_now = strtotime(date('Y-m-d H:i:s'));
 							$quiz_time_end = $_SESSION['quiz_end_time'];
-							$time_left     = $quiz_time_end - $quiz_time_now;
+							$time_left     = $_SESSION['quiz_remain_time']=$quiz_time_end - $quiz_time_now;
 							if ($time_left < 1) {
 								echo "<b style='color:red'> 00 : 00 </b>";
 							} else {

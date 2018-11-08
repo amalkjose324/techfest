@@ -29,13 +29,13 @@ $duration =0;
 $question_count=0;
 if($round==1){
 	$question_count=30;
-	$duration=900;
+	$duration=600;
 	$round_text="Round-1";
 	$round_descripton ="30 Questions : Negative Marking : No";
 }
 else if($round==2){
 	$question_count=20;
-	$duration=600;
+	$duration=420;
 	$round_text="Round-2";
 	$round_descripton ="20 Questions : Negative Marking : Yes (Correct : +4, Incurrect : -1)";
 }else if($round==0){

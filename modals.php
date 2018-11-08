@@ -20,32 +20,32 @@
       <div class="modal-body">
         <p>Read the following instructions carefully.</p>
         <ol type = "1">
-          <li>1. The Brain Droop, Science Quiz Entry limited to degree students.</li>
-          <li>2. It consists of 3 Rounds of multiple choice questions that are worth 4 point each. </li>
+          <li>1. The Brain Droop - Science Quiz Entry limited to degree students.</li>
+          <li>2. It consists of 3 Rounds of multiple choice questions worth 4 points each. </li>
           <li>3. Participants are not allowed to use mobile phones or any other electronic gadgets during the contest. </li>
-          <li>4. The questions from the area of Current Affairs,Science and Technology and Mental Ability. </li>
-          <li>5. In case of a tie during the final round (Round-3), additional questions will be considered to finalize the event winner. </li>
+          <li>4. The questions are from the area of Current Affairs,Science and Technology and Mental Ability. </li>
+          <li>5. In case of tie during the final round (Round-3), additional questions will be considered to finalize the event winner. </li>
 
           <li><b>Round-1 : </b><br>
             <ol type = "a">
               <li style="margin-left:15px;">a) This round consists 30 Multiple choice questions that are worth 4 point each and No Negative Marking.</li>
-              <li style="margin-left:15px;">b) There is a time limit of 15 Minutes to complete this round and, the result generation time may vary.</li>
-              <li style="margin-left:15px;">c) The result, including mark and next round eligiblity will be automatically generated after the final submission of this round.</li>
+              <li style="margin-left:15px;">b) Time limit of this round is 10 Minutes.</li>
+              <li style="margin-left:15px;">c) The result - mark and next round eligiblity, will be automatically generated after the final submission of this round.</li>
             </ol>
           </li>
           <li><b>Round-2 : </b><br>
             <ol type = "a">
-              <li style="margin-left:15px;">a) This round consists 20 Multiple choice questions that are worth 4 point each and including Negative mark (-1) for each wrong answers.</li>
-              <li style="margin-left:15px;">b) There is a time limit of 10 Minutes to complete this round and, the result generation time may vary.</li>
-              <li style="margin-left:15px;">c) If there is in any tie in the results, the completed time and previous round marks also be considered.</li>
+              <li style="margin-left:15px;">a) This round consists 20 Multiple choice questions worth 4 points each with Negative mark (-1) for each wrong answers.</li>
+              <li style="margin-left:15px;">b) Time limit of this round is 7 Minutes.</li>
+              <li style="margin-left:15px;">c) In case of tie, the completed time and previous round marks also be considered.</li>
             </ol>
           </li>
           <li><b>Round-3 : </b><br>
             <ol type = "a">
-              <li style="margin-left:15px;">a) This round consists Multiple choice questions and includes Passing Questions .</li>
+              <li style="margin-left:15px;">a) This round consists of Multiple choice questions with pass .</li>
               <li style="margin-left:15px;">b) Each primary questions have the time limit of 60 Seconds and secondary questions have the time limit of 30 Seconds.</li>
-              <li style="margin-left:15px;">c) Each currect answer of primary questions have 10 Marks and wrong answer have Negative marking of 5 marks .</li>
-              <li style="margin-left:15px;">d) Each currect answer of secondary / passed questions have 5 Marks and wrong answer have Negative marking of 2 marks .</li>
+              <li style="margin-left:15px;">c) Each correct answer of primary questions have 10 Marks and wrong answer have Negative marking of 5.</li>
+              <li style="margin-left:15px;">d) Each correct answer of secondary / passed questions have 5 Marks and wrong answer have Negative marking of 2.</li>
             </ol>
           </li>
         </ol>
